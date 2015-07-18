@@ -11,6 +11,8 @@
 #include <Usb.h>
 #include <usbhub.h>
 #include <hidboot.h>
+#include <SPI.h>
+
 
 class HIDKeyboardParser : public KeyboardReportParser
 {
@@ -28,7 +30,7 @@ HIDKeyboardParser parser;
 
 void setup()
 {
-    Serial.begin(115200);
+    Serial.begin(9600);
     Serial.println("Start");
 
     if (usb.Init() == -1) {
@@ -59,7 +61,7 @@ void sendKeyCodesBySerial(uint8_t modifiers,
 
     /* send key codes(8 bytes all) */
     Serial.write(modifiers); // modifier keys
-    Serial.write(0x00, 1);   // reserved
+    Serial.write(0x00);      // reserved
     Serial.write(keycode0);  // keycode0
     Serial.write(keycode1);  // keycode1
     Serial.write(keycode2);  // keycode2
